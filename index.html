@@ -961,6 +961,25 @@
 
   footer p span { color: rgba(255,255,255,0.75); }
 
+  /* HAMBURGER BUTTON */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
   @media (max-width: 920px) {
     nav { padding: 0 1.5rem; }
     .nav-links { gap: 1.2rem; }
@@ -974,6 +993,63 @@
     .hero-name { white-space: normal; font-size: 3rem; }
   }
 
+  @media (max-width: 640px) {
+    html, body { overflow-x: hidden; }
+
+    /* NAV — hamburger */
+    nav {
+      padding: 0 1.25rem;
+      height: 56px;
+      position: fixed;
+    }
+    .nav-hamburger { display: flex; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 56px;
+      left: 0; right: 0;
+      background: rgb(253, 251, 255);
+      backdrop-filter: none;
+      border-bottom: 1px solid var(--border);
+      flex-direction: column;
+      gap: 0;
+      padding: 0.4rem 0;
+      z-index: 199;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    /* HERO */
+    .hero-left { padding: 5rem 1.25rem 2rem; }
+    .hero-name { font-size: 2.4rem; }
+    .hero-role { font-size: 0.9rem; }
+
+    /* SECTIONS */
+    section { padding: 3rem 1.25rem; }
+
+    /* BUTTONS */
+    .attach-btn {
+      font-size: 0.78rem;
+      padding: 7px 14px;
+      white-space: nowrap;
+    }
+    .attach-btn-rose {
+      font-size: 0.78rem;
+      padding: 6px 13px;
+    }
+
+    /* EDUCATION */
+    .edu-card { padding: 1.1rem 1.2rem; }
+    .edu-attach { padding: 1rem 1.1rem; }
+
+    /* FOOTER */
+    footer { padding: 1.5rem 1.25rem; }
+  }
+
   @media (max-width: 560px) {
     .skills-grid { grid-template-columns: 1fr; }
     .hero-ctas { flex-direction: column; }
@@ -984,7 +1060,10 @@
 
 <nav>
   <div class="nav-logo">Moazma Baig</div>
-  <ul class="nav-links">
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -1410,6 +1489,15 @@
   <p><span>Moazma Baig</span> · IT Business Analyst · Toronto, ON · <span>moazma.baig@georgebrown.ca</span></p>
   <p style="margin-top:0.4rem;font-size:0.76rem;">George Brown College 2026</p>
 </footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks  = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+</script>
 
 </body>
 </html>
